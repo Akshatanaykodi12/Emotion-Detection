@@ -1,0 +1,8 @@
+flask
+deepface
+opencv-python
+numpy
+tf-keras
+textblob
+SpeechRecognition
+pydub

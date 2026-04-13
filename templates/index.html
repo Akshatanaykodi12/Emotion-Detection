@@ -1,0 +1,396 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion-Based Content Adaptation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-content">
+            <h1>🎭 Emotion-Based Content Adaptation System</h1>
+            
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section class="dashboard-section">
+            <h2 class="section-title">🧠 Emotion Input Modules</h2>
+
+            <div class="grid-layout">
+
+                <div class="card input-card">
+                    <h2>📷 Face Emotion Detection</h2>
+                    <video id="video" width="300" height="225" autoplay></video>
+                    <br><br>
+                    <button id="captureBtn">Detect Emotion</button>
+                    <canvas id="canvas" width="300" height="225" style="display:none;"></canvas>
+                </div>
+                 <div class="card image-card">
+                  <h3>📸 Captured Image</h3>
+                 <img id="capturedImage" alt="Captured face will appear here">
+                </div>
+
+                <div class="card input-card small-card">
+                   <h2>📝 Text Sentiment Analysis</h2>
+                    <textarea id="textInput" rows="5" placeholder="Type how you feel..."></textarea>
+                    <br><br>
+                    <button id="analyzeTextBtn">Analyze Text</button>
+                </div>
+
+                <div class="card input-card small-card">
+                   <h2>🎤 Audio Sentiment Analysis</h2>
+                    <button id="startRecordBtn">Start Recording</button>
+                    <button id="stopRecordBtn" disabled>Stop Recording</button>
+                    <p id="audioStatus">Click start and speak your feelings...</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+           
+
+            <div class="grid-layout">
+
+
+                 <div class="card result-highlight">
+                    <h3>🎭 Detected Emotion</h3>
+                    <p id="emotion">Waiting...</p>
+                </div>
+
+                <div class="card">
+                    <h3>📈 Emotion Scores</h3>
+                    <pre id="scores">Waiting...</pre>
+                </div>
+
+                <div class="card">
+                    <h3>💬 Motivational Quote</h3>
+                    <p id="quote">Waiting...</p>
+                </div>
+
+                <div class="card">
+                    <h3>🎵 Recommended Music</h3>
+                    <div id="musicList"></div>
+                </div>
+
+                <div class="card">
+                    <h3>🎥 Recommended Videos</h3>
+                    <div id="videoList"></div>
+                </div>
+
+                <div class="card">
+                    <h3>💡 Suggestion</h3>
+                    <p id="suggestion">Waiting...</p>
+                </div>
+
+                <div class="card">
+                    <h3>🧘 Exercise</h3>
+                    <p id="exercise">Waiting...</p>
+                </div>
+
+                <div class="card">
+                    <h3>✨ Extra Tip</h3>
+                    <p id="extra">Waiting...</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+<section class="dashboard-section">
+
+    <div class="grid-layout">
+
+        <div class="card">
+    <h3>🕘 Emotion Detection History</h3>
+
+    <button id="toggleHistoryBtn">📂 Show Emotion History</button>
+
+    <div id="historyContainer" style="display: none;">
+        <div class="table-wrapper">
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Emotion</th>
+                        <th>Input Type</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                    <tr>
+                        <td colspan="3">No history yet...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button id="clearHistoryBtn">🗑️ Clear History</button>
+    </div>
+</div>
+
+       <div class="card">
+    <h3>📊 Emotion Analytics</h3>
+
+    <div id="analyticsBox" class="analytics-grid">
+        <div class="analytics-card happy-box">😊 Happy: 0</div>
+        <div class="analytics-card sad-box">😢 Sad: 0</div>
+        <div class="analytics-card angry-box">😠 Angry: 0</div>
+        <div class="analytics-card fear-box">😨 Fear: 0</div>
+        <div class="analytics-card surprise-box">😲 Surprise: 0</div>
+        <div class="analytics-card neutral-box">😐 Neutral: 0</div>
+        <div class="analytics-card disgust-box">🤢 Disgust: 0</div>
+    </div>
+</div>
+
+    </div>
+</section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emovibe — Emotion-Based Content Adaptation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <span class="brand-mark"></span>
+                <div>
+                    <span class="brand-name">Emovibe</span>
+                    <span class="brand-sub">Emotion Adaptation Engine</span>
+                </div>
+            </div>
+            <div class="topbar-meta">
+                <span class="status-dot"></span>
+                <span class="status-label">System Active</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-body">
+
+        <!-- Page Intro -->
+        <div class="page-header">
+            <h1 class="page-title">Detection Dashboard</h1>
+            <p class="page-desc">Select an input method below to analyze emotional state and receive adaptive content recommendations.</p>
+        </div>
+
+        <!-- Input Modules -->
+        <section class="section">
+            <div class="section-label">Input Modules</div>
+
+            <div class="input-grid">
+
+                <!-- Face Detection -->
+                <div class="card card--tall">
+                    <div class="card-header">
+                        <div class="card-icon icon-face"></div>
+                        <div>
+                            <div class="card-title">Face Detection</div>
+                            <div class="card-subtitle">Real-time facial expression analysis</div>
+                        </div>
+                    </div>
+                    <div class="webcam-wrapper">
+                        <video id="video" width="100%" autoplay></video>
+                        <div class="webcam-overlay">
+                            <div class="scan-line"></div>
+                            <div class="corner tl"></div>
+                            <div class="corner tr"></div>
+                            <div class="corner bl"></div>
+                            <div class="corner br"></div>
+                        </div>
+                    </div>
+                    <canvas id="canvas" style="display:none;"></canvas>
+                    <button class="btn btn--primary" id="captureBtn">Analyze Frame</button>
+                </div>
+
+                <!-- Captured Preview -->
+                <div class="card card--preview">
+                    <div class="card-header">
+                        <div class="card-icon icon-image"></div>
+                        <div>
+                            <div class="card-title">Captured Frame</div>
+                            <div class="card-subtitle">Last captured image</div>
+                        </div>
+                    </div>
+                    <div class="preview-box">
+                        <img id="capturedImage" alt="Capture will appear here" />
+                        <div class="preview-empty" id="previewPlaceholder">No capture yet</div>
+                    </div>
+                </div>
+
+                <!-- Text Sentiment -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon icon-text"></div>
+                        <div>
+                            <div class="card-title">Text Sentiment</div>
+                            <div class="card-subtitle">Natural language mood analysis</div>
+                        </div>
+                    </div>
+                    <textarea id="textInput" rows="5" placeholder="Describe how you are feeling right now..."></textarea>
+                    <button class="btn btn--secondary" id="analyzeTextBtn">Analyze Text</button>
+                </div>
+
+                <!-- Audio Sentiment -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon icon-audio"></div>
+                        <div>
+                            <div class="card-title">Voice Sentiment</div>
+                            <div class="card-subtitle">Audio tone and mood detection</div>
+                        </div>
+                    </div>
+                    <div class="audio-controls">
+                        <button class="btn btn--secondary" id="startRecordBtn">
+                            <span class="rec-dot"></span> Start Recording
+                        </button>
+                        <button class="btn btn--ghost" id="stopRecordBtn" disabled>Stop</button>
+                    </div>
+                    <div class="audio-status-bar">
+                        <div class="audio-bars" id="audioBars">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <p id="audioStatus" class="audio-label">Ready — click start and speak</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="section">
+            <div class="section-label">Analysis Results</div>
+
+            <div class="results-grid">
+
+                <div class="card card--highlight">
+                    <div class="result-label">Detected Emotion</div>
+                    <div class="result-value" id="emotion">—</div>
+                    <div class="result-hint">Primary classification</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Confidence Scores</div>
+                    <pre class="score-block" id="scores">Awaiting analysis...</pre>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Motivational Insight</div>
+                    <blockquote class="quote-block" id="quote">Your quote will appear here after analysis.</blockquote>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Suggested Music</div>
+                    <div class="recommendation-list" id="musicList">
+                        <div class="rec-placeholder">No recommendations yet</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Suggested Videos</div>
+                    <div class="recommendation-list" id="videoList">
+                        <div class="rec-placeholder">No recommendations yet</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Behavioral Suggestion</div>
+                    <p class="result-text" id="suggestion">Awaiting analysis...</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Recommended Exercise</div>
+                    <p class="result-text" id="exercise">Awaiting analysis...</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Wellness Tip</div>
+                    <p class="result-text" id="extra">Awaiting analysis...</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- History & Analytics -->
+        <section class="section section--last">
+            <div class="section-label">Session Insights</div>
+
+            <div class="analytics-row">
+
+                <div class="card card--history">
+                    <div class="card-header card-header--between">
+                        <div>
+                            <div class="card-title">Detection History</div>
+                            <div class="card-subtitle">Session log of all detections</div>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn btn--ghost btn--sm" id="toggleHistoryBtn">Show Log</button>
+                            <button class="btn btn--ghost btn--sm btn--danger" id="clearHistoryBtn">Clear</button>
+                        </div>
+                    </div>
+
+                    <div id="historyContainer" class="history-panel" style="display:none;">
+                        <table class="history-table" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Emotion</th>
+                                    <th>Input Type</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <tr class="empty-row">
+                                    <td colspan="3">No detections recorded yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card card--analytics">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Emotion Distribution</div>
+                            <div class="card-subtitle">Frequency across this session</div>
+                        </div>
+                    </div>
+                    <div class="analytics-grid" id="analyticsBox">
+                        <div class="emotion-chip chip--happy">Happy <span class="chip-count">0</span></div>
+                        <div class="emotion-chip chip--sad">Sad <span class="chip-count">0</span></div>
+                        <div class="emotion-chip chip--angry">Angry <span class="chip-count">0</span></div>
+                        <div class="emotion-chip chip--fear">Fear <span class="chip-count">0</span></div>
+                        <div class="emotion-chip chip--surprise">Surprise <span class="chip-count">0</span></div>
+                        <div class="emotion-chip chip--neutral">Neutral <span class="chip-count">0</span></div>
+                        <div class="emotion-chip chip--disgust">Disgust <span class="chip-count">0</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <span>Emovibe — Emotion Adaptation Engine</span>
+        <span class="footer-sep">|</span>
+        <span>Multimodal AI · Real-time Analysis</span>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
