@@ -19,6 +19,37 @@ const analyzeTextBtn = document.getElementById('analyzeTextBtn');
 const startRecordBtn = document.getElementById('startRecordBtn');
 const stopRecordBtn = document.getElementById('stopRecordBtn');
 const audioStatus = document.getElementById('audioStatus');
+const videoEmbedWrapper = document.getElementById('videoEmbedWrapper');
+const videoEmbed = document.getElementById('videoEmbed');
+const musicEmbedWrapper = document.getElementById('musicEmbedWrapper');
+const musicEmbed = document.getElementById('musicEmbed');
+
+function getYouTubeEmbedUrl(url) {
+    if (!url || typeof url !== 'string') return null;
+    const videoIdMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+    if (videoIdMatch) {
+        return `https://www.youtube.com/embed/${videoIdMatch[1]}?rel=0&autoplay=0`;
+    }
+    return null;
+}
+
+function buildRecommendationHTML(list, label) {
+    if (!Array.isArray(list) || list.length === 0) {
+        return `<p class="rec-placeholder">No ${label.toLowerCase()} available.</p>`;
+    }
+
+    return list.map((link, index) => {
+        const safeLink = link || '#';
+        return `
+            <div class="rec-item">
+                <span class="rec-item-num">${index + 1}</span>
+                <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
+                    ${label} ${index + 1}
+                </a>
+            </div>
+        `;
+    }).join('');
+}
 
 // ---------------- START WEBCAM ----------------
 navigator.mediaDevices.getUserMedia({ video: true })
@@ -51,27 +82,34 @@ function displayResults(data) {
     exerciseText.innerText = data.exercise || "No exercise available.";
     extraText.innerText = data.extra || "No extra tip available.";
     loadHistory();
-    // Videos
-    let videosHTML = "";
-    if (data.videos && data.videos.length > 0) {
-        data.videos.forEach((link, index) => {
-            videosHTML += `<p><a href="${link}" target="_blank">🎥 Video ${index + 1}</a></p>`;
-        });
-    } else {
-        videosHTML = "<p>No videos available.</p>";
-    }
-    videoList.innerHTML = videosHTML;
 
-    // Music
-    let musicHTML = "";
-    if (data.music && data.music.length > 0) {
-        data.music.forEach((link, index) => {
-            musicHTML += `<p><a href="${link}" target="_blank">🎵 Music ${index + 1}</a></p>`;
-        });
-    } else {
-        musicHTML = "<p>No music available.</p>";
+    videoList.innerHTML = buildRecommendationHTML(data.videos, 'Video');
+    musicList.innerHTML = buildRecommendationHTML(data.music, 'Music');
+
+    const firstVideoUrl = Array.isArray(data.videos) && data.videos.length > 0 ? data.videos[0] : null;
+    const firstMusicUrl = Array.isArray(data.music) && data.music.length > 0 ? data.music[0] : null;
+
+    const videoEmbedUrl = getYouTubeEmbedUrl(firstVideoUrl);
+    if (videoEmbed && videoEmbedWrapper) {
+        if (videoEmbedUrl) {
+            videoEmbed.src = videoEmbedUrl;
+            videoEmbedWrapper.style.display = 'block';
+        } else {
+            videoEmbed.src = '';
+            videoEmbedWrapper.style.display = 'none';
+        }
     }
-    musicList.innerHTML = musicHTML;
+
+    const musicEmbedUrl = getYouTubeEmbedUrl(firstMusicUrl);
+    if (musicEmbed && musicEmbedWrapper) {
+        if (musicEmbedUrl) {
+            musicEmbed.src = musicEmbedUrl;
+            musicEmbedWrapper.style.display = 'block';
+        } else {
+            musicEmbed.src = '';
+            musicEmbedWrapper.style.display = 'none';
+        }
+    }
 }
 
 
